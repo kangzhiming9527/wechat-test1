@@ -12,7 +12,7 @@ public class AccessToken {
 
     public AccessToken(String assessToken, int time) {
         this.assessToken = assessToken;
-        this.timeOut = System.currentTimeMillis() + time*1000;
+        this.timeOut = System.currentTimeMillis() + time * 1000;
     }
 
     public String getAssessToken() {

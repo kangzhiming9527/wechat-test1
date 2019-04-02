@@ -17,6 +17,7 @@ public class AuthServiceUtil {
 
     /**
      * 获取权限token
+     *
      * @return 返回示例：
      * {
      * "access_token": "24.460da4889caad24cccdb1fea17221975.2592000.1491995545.282335-1234567",
@@ -34,6 +35,7 @@ public class AuthServiceUtil {
     /**
      * 获取API访问token
      * 该token有一定的有效期，需要自行管理，当失效时需重新获取.
+     *
      * @param ak - 百度云官网获取的 API Key
      * @param sk - 百度云官网获取的 Securet Key
      * @return assess_token 示例：
@@ -78,7 +80,7 @@ public class AuthServiceUtil {
             String access_token = jsonObject.getString("access_token");
             int expires_in = jsonObject.getInt("expires_in");
 
-            return new AccessToken(access_token,expires_in);
+            return new AccessToken(access_token, expires_in);
         } catch (Exception e) {
             //System.err.printf("获取token失败！");
             e.printStackTrace(System.err);

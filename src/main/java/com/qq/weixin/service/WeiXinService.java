@@ -1,8 +1,6 @@
 package com.qq.weixin.service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.InputStream;
-import java.util.Map;
 
 public interface WeiXinService {
     /**

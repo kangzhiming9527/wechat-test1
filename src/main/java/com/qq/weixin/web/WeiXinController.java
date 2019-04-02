@@ -1,7 +1,6 @@
 package com.qq.weixin.web;
 
 import com.qq.weixin.service.WeiXinService;
-import com.qq.weixin.util.PicToTextUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.util.Map;
 
 /**
  * WeiXinController：
@@ -49,6 +46,7 @@ public class WeiXinController {
 
     /**
      * 与微信服务器对接
+     *
      * @param request
      * @return
      */

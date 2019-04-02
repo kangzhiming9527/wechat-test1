@@ -2,7 +2,6 @@ package com.qq.weixin.bean;
 
 import com.qq.weixin.bean.token.AccessToken;
 import com.qq.weixin.util.AccessTokenUtil;
-import com.qq.weixin.util.AuthServiceUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 

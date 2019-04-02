@@ -1,6 +1,5 @@
 package com.qq.weixin.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.qq.weixin.bean.Constant;
 import com.qq.weixin.bean.message.Message;
 import com.qq.weixin.bean.message.TextMessage;
@@ -121,17 +120,17 @@ public class WeiXinServiceImpl implements WeiXinService {
         String key = map.get("EventKey");
         String event = map.get("Event");
         String toContent = "欢迎订阅XXX公众号，本公众号目前提供图片文字识别功能，快来试试吧！/:rose/:rose/:rose";
-        if("unsubscribe".equals(event)){
+        if ("unsubscribe".equals(event)) {
             log.info("有用户取消订阅了公众号订阅");
             log.info("------详情------");
             log.info(map.toString());
             log.info("------详情------");
-        }else if("subscribe".equals(event)){
+        } else if ("subscribe".equals(event)) {
             log.info("有用户订阅了公众号订阅");
             log.info("------详情------");
             log.info(map.toString());
             log.info("------详情------");
-        }else{
+        } else {
             switch (key) {
                 case "101":
                     toContent = "你点击了第一个菜单按钮，功能开发中敬请期待！";
