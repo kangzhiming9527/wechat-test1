@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.qq.weixin.bean.Constant;
 import com.qq.weixin.bean.button.*;
-import com.qq.weixin.util.AccessTokenUtil;
 import com.qq.weixin.util.MyHttpUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;

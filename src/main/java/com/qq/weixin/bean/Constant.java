@@ -2,7 +2,6 @@ package com.qq.weixin.bean;
 
 import com.qq.weixin.bean.token.AccessToken;
 import com.qq.weixin.util.AccessTokenUtil;
-import com.qq.weixin.util.AuthServiceUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -22,9 +21,7 @@ public class Constant {
     public static String APPID;
     public static String APPSECRET;
     public static String TOKEN;
-    //调用工具类获取token信息
-    private static AccessToken WX_ACCESS_TOKEN = AccessTokenUtil.getAccessTokenFromServer();
-    private static AccessToken BD_ACCESS_TOKEN = AuthServiceUtil.getAuth();
+
 
     @Value("${baidu.appid}")
     public void setAPP_ID(String APP_ID) {
@@ -57,18 +54,20 @@ public class Constant {
         this.APPSECRET = APPSECRET;
     }
 
+    //调用工具类获取token信息
+    private static AccessToken WX_ACCESS_TOKEN;
+    private static AccessToken BD_ACCESS_TOKEN;
 
     public static AccessToken getAccessToken() {
-        if (!WX_ACCESS_TOKEN.isTimeOut()) {
-            //System.out.println("重新获取Token");
+        if (WX_ACCESS_TOKEN != null && !WX_ACCESS_TOKEN.isTimeOut()) {
+        } else {
             WX_ACCESS_TOKEN = AccessTokenUtil.getAccessTokenFromServer();
         }
         return WX_ACCESS_TOKEN;
     }
 
     public static AccessToken getBDAccessToken() {
-        if (!BD_ACCESS_TOKEN.isTimeOut()) {
-            //System.out.println("重新获取Token");
+        if (BD_ACCESS_TOKEN != null && !BD_ACCESS_TOKEN.isTimeOut()) {
             BD_ACCESS_TOKEN = AccessTokenUtil.getAccessTokenFromServer();
         }
         return BD_ACCESS_TOKEN;

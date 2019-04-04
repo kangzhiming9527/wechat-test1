@@ -4,7 +4,6 @@
 package com.qq.weixin;
 
 import com.baidu.aip.util.Base64Util;
-import com.qq.weixin.util.AuthServiceUtil;
 import com.qq.weixin.util.FileUtil;
 import com.qq.weixin.util.HttpUtil;
 
