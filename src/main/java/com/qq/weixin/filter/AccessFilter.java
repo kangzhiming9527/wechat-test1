@@ -30,12 +30,12 @@ public class AccessFilter implements Filter {
             ips = AacquireServerIPS.getServerIP();
         }
         String ipAddress = CusAccessObjectUtil.getIpAddress((HttpServletRequest) servletRequest);
-        log.debug("访问IP为:" + ipAddress);
-        if (ips.contains(ipAddress)) {
-            log.debug("访问IP来自服务器");
+        log.info("访问IP为:" + ipAddress);
+        if (ips!=null&&ips.contains(ipAddress)) {
+            log.info("访问IP来自服务器");
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
-            log.error("非法访问，访问IP不是来自服务器");
+            log.warn("非法访问，访问IP不是来自服务器，请求已拦截\n非法访问IP："+ipAddress);
         }
 
     }
