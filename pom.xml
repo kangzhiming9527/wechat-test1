@@ -81,6 +81,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+		<!-- mysql-->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.21</version>
+		</dependency>
 
 
 
@@ -88,7 +94,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>eureka-7001</finalName>
+		<finalName>weixin-demo2</finalName>
 		<resources>
 			<!-- Resource Filter -->
 			<resource>
@@ -129,7 +135,7 @@
 							<!--jar包不包含唯一版本标识-->
 							<useUniqueVersions>false</useUniqueVersions>
 							<!--指定入口类-->
-							<mainClass>com.bj.kzm.EurekaServer7001_App</mainClass>
+							<mainClass>com.qq.weixin.WeixinDemo2Application</mainClass>
 						</manifest>
 						<manifestEntries>
 							<!--MANIFEST.MF 中 Class-Path 加入资源文件目录-->
