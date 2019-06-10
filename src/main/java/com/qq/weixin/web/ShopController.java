@@ -18,6 +18,7 @@ public class ShopController {
     public String list(HttpServletRequest request) {
         return "shop/list";
     }
+
     @GetMapping("/shudu")
     public String shudu(HttpServletRequest request) {
         return "shudu";

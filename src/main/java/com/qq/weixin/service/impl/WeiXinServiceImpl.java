@@ -32,7 +32,10 @@ public class WeiXinServiceImpl implements WeiXinService {
     //记录基本日志
     Logger log = LoggerFactory.getLogger(WeiXinServiceImpl.class);
     //记录业务日志
-    Logger msgLog = LoggerFactory.getLogger("message");
+    Logger log1 = LoggerFactory.getLogger("log1");
+    Logger log2 = LoggerFactory.getLogger("log2");
+    Logger log3 = LoggerFactory.getLogger("log3");
+    Logger log4 = LoggerFactory.getLogger("log4");
 
 
     /**
@@ -45,7 +48,7 @@ public class WeiXinServiceImpl implements WeiXinService {
     public String getRequestMsg(HttpServletRequest request) {
         Map<String, String> map = parseRequest(request);
         //System.out.println(JSON.toJSONString(map));
-        msgLog.info(JSON.toJSONString(map));
+        log1.info(JSON.toJSONString(map));
         Message msg = null;
         String type = map.get("MsgType");
         switch (type) {
@@ -81,8 +84,8 @@ public class WeiXinServiceImpl implements WeiXinService {
                 break;
         }
         if (null != msg) {
-            msgLog.info("回复消息：");
-            msgLog.info(JSON.toJSONString(msg));
+            log1.info("回复消息：");
+            log1.info(JSON.toJSONString(msg));
         }
         return ObjToXml.dispose(msg);
     }
@@ -128,15 +131,15 @@ public class WeiXinServiceImpl implements WeiXinService {
         String event = map.get("Event");
         String toContent = "欢迎订阅XXX公众号，本公众号目前提供图片文字识别功能，快来试试吧！/:rose/:rose/:rose";
         if ("unsubscribe".equals(event)) {
-            msgLog.info("有用户取消订阅了公众号订阅");
-            msgLog.info("------详情------");
-            msgLog.info(map.toString());
-            msgLog.info("------详情------");
+            log1.info("有用户取消订阅了公众号订阅");
+            log1.info("------详情------");
+            log1.info(map.toString());
+            log1.info("------详情------");
         } else if ("subscribe".equals(event)) {
-            msgLog.info("有用户订阅了公众号订阅");
-            msgLog.info("------详情------");
-            msgLog.info(map.toString());
-            msgLog.info("------详情------");
+            log1.info("有用户订阅了公众号订阅");
+            log1.info("------详情------");
+            log1.info(map.toString());
+            log1.info("------详情------");
         } else {
             switch (key) {
                 case "101":
@@ -176,7 +179,7 @@ public class WeiXinServiceImpl implements WeiXinService {
         if ("147258".equals(srcContent)) {
             try {
                 log.info("收到获取token请求");
-                msgLog.info("收到获取token请求");
+                log1.info("收到获取token请求");
                 toContent = Constant.getAccessToken().getAssessToken();
             } catch (Exception e) {
                 log.error(e.getMessage());

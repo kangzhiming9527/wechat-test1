@@ -18,7 +18,7 @@ public class Commodity {
     private Integer id;
 
     //商品名称
-    @Column(name = "name",length = 50) //这是和数据表对应的一个列
+    @Column(name = "name", length = 50) //这是和数据表对应的一个列
     private String name;
     //价格
     @Column //省略默认列名就是属性名
