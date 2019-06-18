@@ -1,10 +1,14 @@
 package com.qq.weixin.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.qq.weixin.bean.Constant;
 import com.qq.weixin.bean.message.Message;
 import com.qq.weixin.bean.message.TextMessage;
+import com.qq.weixin.bean.shop.Person;
+import com.qq.weixin.dao.PersonDao;
 import com.qq.weixin.service.WeiXinService;
+import com.qq.weixin.util.MyHttpUtil;
 import com.qq.weixin.util.ObjToXml;
 import com.qq.weixin.util.PicToTextUtil;
 import com.qq.weixin.util.SHA1;
@@ -13,6 +17,7 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.ServletInputStream;
@@ -37,6 +42,8 @@ public class WeiXinServiceImpl implements WeiXinService {
     Logger log3 = LoggerFactory.getLogger("log3");
     Logger log4 = LoggerFactory.getLogger("log4");
 
+    @Autowired
+    private PersonDao personDao;
 
     /**
      * 处理消息和事件
@@ -140,6 +147,35 @@ public class WeiXinServiceImpl implements WeiXinService {
             log1.info("------详情------");
             log1.info(map.toString());
             log1.info("------详情------");
+            String openID = map.get("FromUserName");
+            Person one = personDao.findPersonByOpenID(openID);
+            if (one == null) {
+                log2.info("新用户关注了公众号");
+                log.info("新用户关注了公众号");
+                JSONObject userInfo = getUserInfo(openID);
+                Person person = new Person();
+                person.setOpenid(userInfo.getString("openid"));
+                person.setNickname(userInfo.getString("nickname"));
+                String sexStr = "女";
+                Integer sex = userInfo.getInteger("sex");
+                if (sex == 1) {
+                    sexStr = "男";
+                }
+                person.setSex(sexStr);
+                person.setCountry(userInfo.getString("country"));
+                person.setProvince(userInfo.getString("province"));
+                person.setCity(userInfo.getString("city"));
+                person.setHeadimgurl(userInfo.getString("headimgurl"));
+
+                personDao.save(person);
+                log2.info(person.toString());
+                log.info(person.toString());
+            } else {
+                log2.info("用户之前关注过公众号");
+                log.info("用户之前关注过公众号");
+                log2.info(one.toString());
+                log.info(one.toString());
+            }
         } else {
             switch (key) {
                 case "101":
@@ -184,6 +220,10 @@ public class WeiXinServiceImpl implements WeiXinService {
             } catch (Exception e) {
                 log.error(e.getMessage());
             }
+        } else if (srcContent.startsWith("911")) {
+            log.warn("收到错误警告" + map.toString());
+            log4.warn("收到错误警告" + map.toString());
+            toContent = "谢谢您的提醒，管理员会尽快排查解决";
         }
         TextMessage tm = new TextMessage(map, toContent);
         return tm;
@@ -211,6 +251,17 @@ public class WeiXinServiceImpl implements WeiXinService {
         } else {
             return false;
         }
+    }
+
+    /**
+     * 获取用户信息
+     */
+    public JSONObject getUserInfo(String openID) {
+        String URL = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=" +
+                Constant.getAccessToken().getAssessToken() + "&openid=" + openID + "&lang=zh_CN";
+        String jsonStr = MyHttpUtil.get(URL);
+        JSONObject jsonObject = JSONObject.parseObject(jsonStr);
+        return jsonObject;
     }
 
     /**
