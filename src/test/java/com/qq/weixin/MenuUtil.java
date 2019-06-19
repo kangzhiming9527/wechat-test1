@@ -2,11 +2,7 @@ package com.qq.weixin;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.qq.weixin.bean.Constant;
-import com.qq.weixin.bean.button.Button;
-import com.qq.weixin.bean.button.ClickButton;
-import com.qq.weixin.bean.button.PhotoOrAlbumButton;
-import com.qq.weixin.bean.button.SubButton;
+import com.qq.weixin.bean.button.*;
 import com.qq.weixin.util.MyHttpUtil;
 
 /**
@@ -26,7 +22,7 @@ public class MenuUtil {
      */
     public static String delMenu() {
         String url = "https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=ACCESS_TOKEN";
-        String token = Constant.getAccessToken().getAssessToken();
+        String token = TempToken.wxToken;
         System.out.println(token);
         String urlNew = url.replace("ACCESS_TOKEN", token);
 
@@ -40,13 +36,14 @@ public class MenuUtil {
      */
     public static void creationMenu(String token) {
         Button bt = new Button();
-        bt.getButton().add(new ClickButton("测试一", "101"));
-        bt.getButton().add(new ClickButton("测试二", "201"));
+        bt.getButton().add(new ClickButton("签到", "101"));
+        bt.getButton().add(new ClickButton("商城", "201"));
 //        bt.getButton().add(new ViewButton("测试","http://www.baidu.com"));
         SubButton sb = new SubButton("文字识别");
 //        sb.getSub_button().add(new ViewButton("网易","http://www.163.com"));
         sb.getSub_button().add(new PhotoOrAlbumButton("开始使用", "pic2tex"));
         sb.getSub_button().add(new ClickButton("使用说明", "301"));
+        sb.getSub_button().add(new ViewButton("会员中心", "http://kzm.free.idcfengye.com/person/redirect"));
 
         bt.getButton().add(sb);
         String btStr = JSON.toJSONString(bt);

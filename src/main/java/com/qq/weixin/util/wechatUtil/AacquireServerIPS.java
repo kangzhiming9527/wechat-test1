@@ -1,7 +1,8 @@
-package com.qq.weixin.util;
+package com.qq.weixin.util.wechatUtil;
 
 import com.alibaba.fastjson.JSONObject;
 import com.qq.weixin.bean.Constant;
+import com.qq.weixin.util.MyHttpUtil;
 
 import java.util.List;
 

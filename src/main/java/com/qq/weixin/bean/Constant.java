@@ -1,7 +1,7 @@
 package com.qq.weixin.bean;
 
 import com.qq.weixin.bean.token.AccessToken;
-import com.qq.weixin.util.AccessTokenUtil;
+import com.qq.weixin.util.wechatUtil.AccessTokenUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +21,9 @@ public class Constant {
     public static String APPID;
     public static String APPSECRET;
     public static String TOKEN;
+
+    //签到模板ID
+    public static String SIGN_TEMPLATE_ID;
 
 
     @Value("${baidu.appid}")
@@ -52,6 +55,11 @@ public class Constant {
     @Value("${weixin.appsecret}")
     public void setAPPSECRET(String APPSECRET) {
         this.APPSECRET = APPSECRET;
+    }
+
+    @Value("${sign.template.id}")
+    public void setSIGN_TEMPLATE_ID(String SIGN_TEMPLATE_ID) {
+        this.SIGN_TEMPLATE_ID = SIGN_TEMPLATE_ID;
     }
 
     //调用工具类获取token信息

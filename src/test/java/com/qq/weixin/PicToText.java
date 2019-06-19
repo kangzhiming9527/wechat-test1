@@ -1,13 +1,5 @@
 package com.qq.weixin;
 
-import com.baidu.aip.ocr.AipOcr;
-import com.qq.weixin.bean.Constant;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-
 /**
  * PicToText：
  * 2019/3/31 21:39
@@ -16,6 +8,7 @@ import java.util.HashMap;
 public class PicToText {
 
     public static void main(String[] args) {
+        /*
         // 初始化一个AipOcr
         AipOcr client = new AipOcr(Constant.APP_ID, Constant.API_KEY, Constant.SECRET_KEY);
 
@@ -45,7 +38,7 @@ public class PicToText {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
+*/
 
     }
 }

@@ -3,12 +3,6 @@
  */
 package com.qq.weixin;
 
-import com.baidu.aip.util.Base64Util;
-import com.qq.weixin.util.FileUtil;
-import com.qq.weixin.util.HttpUtil;
-
-import java.net.URLEncoder;
-
 /**
  * OCR 通用识别
  */
@@ -24,6 +18,7 @@ public class Test01 {
      * 下载
      */
     public static void main(String[] args) {
+        /*
         // 高清文字识别含位置信息
 //        String otherHost = "https://aip.baidubce.com/rest/2.0/ocr/v1/general";
         //手写文字识别
@@ -37,13 +32,14 @@ public class Test01 {
             /**
              * 线上环境access_token有过期时间， 客户端可自行缓存，过期后重新获取。
              */
+        /*
             System.out.println("---------------------");
 //            String accessToken = AuthServiceUtil.getAuth();
 //            String accessToken = "#####调用鉴权接口获取的token#####";
             String accessToken = "24.1494167da0b029abb1ea0b67dc3fd87a.2592000.1556699450.282335-15900936";
             System.out.println(accessToken);
             System.out.println("---------------------");
-            if(null!=accessToken){
+            if (null != accessToken) {
                 String result = HttpUtil.post(otherHost, accessToken, params);
                 System.out.println(result);
                 System.out.println("---------------------");
@@ -51,5 +47,7 @@ public class Test01 {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        */
     }
+
 }

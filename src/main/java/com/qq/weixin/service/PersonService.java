@@ -24,4 +24,12 @@ public interface PersonService {
     Person findPersonByOpenID(String openID);
 
     Person findPersonByID(Long id);
+
+    /**
+     * 用户签到
+     *
+     * @param openID
+     * @return 1 签到成功 2 已经签到过了 3 签到失败
+     */
+    String qianDao(String openID);
 }

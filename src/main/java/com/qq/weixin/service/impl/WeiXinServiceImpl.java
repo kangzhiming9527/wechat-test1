@@ -6,12 +6,12 @@ import com.qq.weixin.bean.Constant;
 import com.qq.weixin.bean.message.Message;
 import com.qq.weixin.bean.message.TextMessage;
 import com.qq.weixin.bean.shop.Person;
-import com.qq.weixin.dao.PersonDao;
+import com.qq.weixin.service.PersonService;
 import com.qq.weixin.service.WeiXinService;
 import com.qq.weixin.util.MyHttpUtil;
-import com.qq.weixin.util.ObjToXml;
-import com.qq.weixin.util.PicToTextUtil;
-import com.qq.weixin.util.SHA1;
+import com.qq.weixin.util.wechatUtil.ObjToXml;
+import com.qq.weixin.util.wechatUtil.PicToTextUtil;
+import com.qq.weixin.util.wechatUtil.SHA1;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
@@ -43,7 +43,7 @@ public class WeiXinServiceImpl implements WeiXinService {
     Logger log4 = LoggerFactory.getLogger("log4");
 
     @Autowired
-    private PersonDao personDao;
+    private PersonService personService;
 
     /**
      * 处理消息和事件
@@ -54,7 +54,7 @@ public class WeiXinServiceImpl implements WeiXinService {
     @Override
     public String getRequestMsg(HttpServletRequest request) {
         Map<String, String> map = parseRequest(request);
-        //System.out.println(JSON.toJSONString(map));
+
         log1.info(JSON.toJSONString(map));
         Message msg = null;
         String type = map.get("MsgType");
@@ -93,8 +93,11 @@ public class WeiXinServiceImpl implements WeiXinService {
         if (null != msg) {
             log1.info("回复消息：");
             log1.info(JSON.toJSONString(msg));
+            return ObjToXml.dispose(msg);
+        } else {
+            return "";
         }
-        return ObjToXml.dispose(msg);
+
     }
 
     /**
@@ -137,18 +140,18 @@ public class WeiXinServiceImpl implements WeiXinService {
         String key = map.get("EventKey");
         String event = map.get("Event");
         String toContent = "欢迎订阅XXX公众号，本公众号目前提供图片文字识别功能，快来试试吧！/:rose/:rose/:rose";
-        if ("unsubscribe".equals(event)) {
+        if ("unsubscribe".equals(event)) {//取消关注公众号
             log1.info("有用户取消订阅了公众号订阅");
             log1.info("------详情------");
             log1.info(map.toString());
             log1.info("------详情------");
-        } else if ("subscribe".equals(event)) {
+        } else if ("subscribe".equals(event)) {//关注公众号
             log1.info("有用户订阅了公众号订阅");
             log1.info("------详情------");
             log1.info(map.toString());
             log1.info("------详情------");
             String openID = map.get("FromUserName");
-            Person one = personDao.findPersonByOpenID(openID);
+            Person one = personService.findPersonByOpenID(openID);
             if (one == null) {
                 log2.info("新用户关注了公众号");
                 log.info("新用户关注了公众号");
@@ -167,7 +170,7 @@ public class WeiXinServiceImpl implements WeiXinService {
                 person.setCity(userInfo.getString("city"));
                 person.setHeadimgurl(userInfo.getString("headimgurl"));
 
-                personDao.save(person);
+                personService.save(person);
                 log2.info(person.toString());
                 log.info(person.toString());
             } else {
@@ -176,10 +179,13 @@ public class WeiXinServiceImpl implements WeiXinService {
                 log2.info(one.toString());
                 log.info(one.toString());
             }
+        } else if ("TEMPLATESENDJOBFINISH".equals(event)) {//模板消息发送反馈
+            log.info("模板消息发送反馈");
+            toContent = "";
         } else {
             switch (key) {
                 case "101":
-                    toContent = "你点击了第一个菜单按钮，功能开发中敬请期待！";
+                    toContent = personService.qianDao(map.get("FromUserName"));
                     break;
                 case "201":
                     toContent = "你点击了第二个菜单按钮，功能开发中敬请期待！";

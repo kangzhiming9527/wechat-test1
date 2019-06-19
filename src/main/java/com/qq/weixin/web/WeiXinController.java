@@ -37,11 +37,14 @@ public class WeiXinController {
         String str = null;
         try {
             str = weiXinService.getRequestMsg(request);
+            if (str != null) {
+                str.replace(" ", "");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return str.replace(" ", "");
+        return str;
     }
 
     /**
